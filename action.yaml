@@ -1,4 +1,4 @@
-name: 'image-tag-creator'
+name: 'Image Tag Creator'
 description: 'Generates an image tag for pushing it to a container registry'
 author: Alejandro Romero
 outputs:

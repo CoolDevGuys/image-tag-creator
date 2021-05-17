@@ -8,3 +8,37 @@ branch name, in this case would be `feature-branch-1`, and for the tags it's som
 
 When the branch name has a complex name something like `feature/something-else` it will convert 
 the `/` to `-` so the tag value would be `feature-something-else`
+
+### Example
+Here an example of using this action to build and push an image to the github registry
+```yaml
+name: CI Pipelines
+
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  build-and-push-app-image:
+    runs-on: ubuntu-latest
+    name: Docker build, tag, push
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Login to Gihub Packages
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{github.repository_owner}}
+          password: ${{secrets.GITHUB_TOKEN}}
+      - name: Creating version
+        uses: CoolDevGuys/image-tag-creator@1.0.0
+        id: image_tag
+      - name: Build app image
+        id: image_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/${{github.repository}}/app:${{steps.image_tag.outputs.tag}}
+```
