@@ -12,8 +12,10 @@ echo "$GITHUB_EVENT_PATH"
 # Returns the raw tag to be converted
 get_tag() {
   prefix='refs\/.*\/'
-  raw_value=$(echo "${GITHUB_REF}" | sed 's/^$prefix//')
-  cleaned=$(echo "${raw_value}" | sed 's/\//\-/')
+  raw_value=""
+  $(echo "${GITHUB_REF}" | sed 's/^refs\/.*\///') > raw_value
+  cleaned=""
+  $(echo "${raw_value}" | sed 's/\//\-/') > cleaned
   echo  "[INFO] tag value ${cleaned}"
   echo "::set-output name=tag::${cleaned}"
 }
