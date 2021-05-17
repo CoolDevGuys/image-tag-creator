@@ -14,6 +14,7 @@ get_tag() {
   prefix='refs\/.*\/'
   raw_value=$(echo "${GITHUB_REF}" | sed 's/^$prefix//')
   cleaned=$(echo "${raw_value}" | sed 's/\//\-/')
+  echo  "[INFO] tag value ${cleaned}"
   echo "::set-output name=tag::${cleaned}"
 }
 
