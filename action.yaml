@@ -1,6 +1,12 @@
 name: 'image-tag-creator'
 description: 'Generates an image tag for pushing it to a container registry'
-
+author: Alejandro Romero
+outputs:
+  tag:
+    description: "Tag value"
+branding:
+  icon: bookmark
+  color: gray-dark
 runs:
   using: 'docker'
   image: 'Dockerfile'
